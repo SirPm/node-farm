@@ -2,6 +2,8 @@ const fs = require("fs");
 const http = require("http");
 const url = require("url");
 
+const replaceVariableWithContent = require("./modules/replaceTemplate");
+
 // const textInputVal = fs.readFileSync("./txt/input.txt", "utf-8");
 
 // const output = `This is what we know on avocados: ${textInputVal}\nThis was created: ${Date.now()}`;
@@ -29,23 +31,6 @@ const url = require("url");
 // });
 
 // console.log("File will be written now");
-
-const replaceVariableWithContent = (temp, product) => {
-  let output = temp;
-  output = output.replace(/{%PRODUCT_NAME%}/g, product.productName);
-  output = output.replace(/{%IMAGE%}/g, product.image);
-  output = output.replace(/{%FROM%}/g, product.from);
-  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-  output = output.replace(/{%QUANTITY%}/g, product.quantity);
-  output = output.replace(/{%PRICE%}/g, product.price);
-  output = output.replace(/{%ID%}/g, product.id);
-  output = output.replace(/{%DESCRIPTION%}/g, product.description);
-
-  !product.organic &&
-    (output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic"));
-
-  return output;
-};
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const tempOverview = fs.readFileSync(
